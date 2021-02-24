@@ -6,6 +6,7 @@ use App\Entity\Traits\Timestampable;
 use App\Repository\PinRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\IdGenerator\UuidV4Generator;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=PinRepository::class)
@@ -26,12 +27,16 @@ class Pin
     /**
      * @ORM\Column(type="text")
      */
-    private string $description;
+    #[Assert\NotBlank(groups: ['pin_creation_update'])]
+    #[Assert\Length(min: 10, groups: ['pin_creation_update'])]
+    private ?string $description;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private string $title;
+    #[Assert\NotBlank(groups: ['pin_creation_update'])]
+    #[Assert\Length(min: 3, groups: ['pin_creation_update'])]
+    private ?string $title;
 
     public function getId(): ?string
     {
@@ -43,7 +48,7 @@ class Pin
         return $this->description;
     }
 
-    public function setDescription(string $description): self
+    public function setDescription(?string $description): self
     {
         $this->description = $description;
 
@@ -55,7 +60,7 @@ class Pin
         return $this->title;
     }
 
-    public function setTitle(string $title): self
+    public function setTitle(?string $title): self
     {
         $this->title = $title;
 

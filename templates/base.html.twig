@@ -4,18 +4,16 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{% block title %}{% endblock %}</title>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+
+        {% block stylesheets %}
+            <link rel="preconnect" href="https://fonts.gstatic.com">
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+            <link rel="stylesheet" href="{{ asset('css/index.css') }}">
+        {% endblock %}
     </head>
     <body>
-        {% include '_partials/navbar.html.twig' %}
-
-        {% for label, messages in app.flashes %}
-            {% for message in messages %}
-                <div class="has-text-centered notification is-light is-{{ label }}">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        {% endfor %}
+        {% include '_partials/_navbar.html.twig' %}
+        {% include '_partials/_flash_messages.html.twig' %}
 
         {% block body %}{% endblock %}
 

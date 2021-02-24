@@ -17,7 +17,9 @@ class PinType extends AbstractType
         $builder
             ->add('title', TextType::class)
             ->add('description', TextareaType::class)
-            ->add('submit', SubmitType::class)
+            ->add('submit', SubmitType::class, [
+                'attr' => ['class' => 'is-link is-fullwidth'],
+            ])
         ;
     }
 
@@ -26,6 +28,7 @@ class PinType extends AbstractType
         $resolver->setDefaults([
             'attr' => ['novalidate' => 'novalidate'],
             'data_class' => Pin::class,
+            'validation_groups' => ['Default', 'pin_creation_update']
         ]);
     }
 }
