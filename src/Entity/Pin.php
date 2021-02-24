@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\PinRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\IdGenerator\UuidV4Generator;
 
 /**
  * @ORM\Entity(repositoryClass=PinRepository::class)
@@ -12,10 +13,11 @@ class Pin
 {
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="uuid", unique=true)
+     * @ORM\CustomIdGenerator(class=UuidV4Generator::class)
+     * @ORM\GeneratedValue(strategy="CUSTOM")
      */
-    private int $id;
+    private string $id;
 
     /**
      * @ORM\Column(type="text")
@@ -27,7 +29,7 @@ class Pin
      */
     private string $title;
 
-    public function getId(): ?int
+    public function getId(): ?string
     {
         return $this->id;
     }

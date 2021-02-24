@@ -1,4 +1,4 @@
 App\Entity\Pin:
   pin_{1..10}:
-    description: <realText()>
+    description: <sentence()>
     title: <word()>
