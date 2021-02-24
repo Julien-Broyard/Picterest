@@ -24,6 +24,7 @@ class PinType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
+            'attr' => ['novalidate' => 'novalidate'],
             'data_class' => Pin::class,
         ]);
     }

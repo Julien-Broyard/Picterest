@@ -33,6 +33,23 @@ class PinController extends AbstractController
         ]);
     }
 
+    #[Route('/edit/{id<[\da-fA-F]{8}\-[\da-fA-F]{4}\-[\da-fA-F]{4}\-[\da-fA-F]{4}\-[\da-fA-F]{12}>}', name: 'edit', methods: ['GET', 'POST'])]
+    public function edit(EntityManagerInterface $entityManager, Pin $pin, Request $request): Response
+    {
+        $form = $this->createForm(PinType::class, $pin);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($pin);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('pin_show', ['id' => $pin->getId()]);
+        }
+        return $this->render('pin/edit.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
     #[Route('/{id<[\da-fA-F]{8}\-[\da-fA-F]{4}\-[\da-fA-F]{4}\-[\da-fA-F]{4}\-[\da-fA-F]{12}>}', name: 'show')]
     public function show(Pin $pin): Response
     {

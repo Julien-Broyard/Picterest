@@ -1,0 +1,19 @@
+<nav aria-label="main navigation" class="navbar is-dark" role="navigation">
+    <div class="navbar-brand">
+        <a class="navbar-item" href="{{ path('app_home') }}">Picterest</a>
+
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="mainNavbar">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+    </div>
+
+    <div class="container">
+        <div class="navbar-menu" id="mainNavbar">
+            <div class="navbar-end">
+                <a class="navbar-item" href="{{ path('pin_create') }}">Create</a>
+            </div>
+        </div>
+    </div>
+</nav>
