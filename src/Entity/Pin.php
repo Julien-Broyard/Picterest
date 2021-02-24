@@ -2,15 +2,19 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\Timestampable;
 use App\Repository\PinRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\IdGenerator\UuidV4Generator;
 
 /**
  * @ORM\Entity(repositoryClass=PinRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
 class Pin
 {
+    use Timestampable;
+
     /**
      * @ORM\Id
      * @ORM\Column(type="uuid", unique=true)

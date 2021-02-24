@@ -13,7 +13,7 @@ class HomeController extends AbstractController
     #[Route('/', name: 'home')]
     public function home(PinRepository $pinRepository): Response
     {
-        $pins = $pinRepository->findAll();
+        $pins = $pinRepository->findBy([], ['createdAt' => 'DESC']);
 
         return $this->render('home.html.twig', compact('pins'));
     }

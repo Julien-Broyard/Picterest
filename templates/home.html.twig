@@ -8,7 +8,7 @@
     {% for pin in pins %}
         <article>
             <h2>
-                <a href="{{ path('pin_show', {'uuid': pin.id}) }}">{{ pin.title }}</a>
+                <a href="{{ path('pin_show', {'id': pin.id}) }}">{{ pin.title }}</a>
             </h2>
             <p>{{ pin.description }}</p>
         </article>
