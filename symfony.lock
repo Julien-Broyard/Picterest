@@ -104,6 +104,9 @@
             "./fixtures/.gitignore"
         ]
     },
+    "knplabs/knp-time-bundle": {
+        "version": "v1.15.0"
+    },
     "laminas/laminas-code": {
         "version": "4.0.0"
     },
@@ -569,6 +572,9 @@
         }
     },
     "twig/extra-bundle": {
+        "version": "v3.3.0"
+    },
+    "twig/string-extra": {
         "version": "v3.3.0"
     },
     "twig/twig": {

@@ -9,9 +9,12 @@
 
             {% for pin in pins %}
                 <p class="subtitle">
-                    <a href="{{ path('pin_show', {'id': pin.id}) }}">{{ pin.title }}</a>
+                    <a href="{{ path('pin_show', {'id': pin.id}) }}">
+                        {{ pin.title }}
+                    </a>
                 </p>
-                <p class="content">{{ pin.description }}</p>
+                <p class="content">{{ pin.description|u.truncate(30, '...', false) }}</p>
+                <p class="content">Submitted {{ pin.createdAt|ago }}</p>
             {% endfor %}
         </div>
     </section>

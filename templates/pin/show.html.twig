@@ -13,7 +13,8 @@
     <a href="#" id="deleteButton">Delete</a>
     <a href="{{ path('app_home') }}">Go Back</a>
 
-    <form action="{{ path('pin_delete', {'id': pin.id}) }}" class="is-hidden" id="deleteForm">
+    <form action="{{ path('pin_delete', {'id': pin.id}) }}" class="is-hidden" id="deleteForm" method="post">
+        <input name="crsf_token" type="hidden" value="{{ csrf_token('pin_delete_' ~ pin.id) }}">
         <input name="_method" type="hidden" value="DELETE">
     </form>
 {% endblock %}

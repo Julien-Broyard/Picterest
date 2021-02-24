@@ -42,10 +42,12 @@ class PinController extends AbstractController
     }
 
     #[Route('/delete/{id<[\da-fA-F]{8}\-[\da-fA-F]{4}\-[\da-fA-F]{4}\-[\da-fA-F]{4}\-[\da-fA-F]{12}>}', name: 'delete', methods: ['DELETE'])]
-    public function delete(Pin $pin): RedirectResponse
+    public function delete(Pin $pin, Request $request): RedirectResponse
     {
-        $this->entityManager->remove($pin);
-        $this->entityManager->flush();
+        if ($this->isCsrfTokenValid("pin_delete_".$pin->getId(), $request->request->get('crsf_token'))) {
+            $this->entityManager->remove($pin);
+            $this->entityManager->flush();
+        }
 
         return $this->redirectToRoute('app_home');
 
