@@ -1,15 +1,15 @@
 doctrine:
     dbal:
         url: '%env(resolve:DATABASE_URL)%'
-        server_version: '13'
+        server_version: '13.2'
     orm:
         auto_generate_proxy_classes: true
         auto_mapping: true
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
         mappings:
             App:
-                is_bundle: false
-                type: annotation
-                dir: '%kernel.project_dir%/src/Entity'
-                prefix: 'App\Entity'
                 alias: App
+                dir: '%kernel.project_dir%/src/Entity'
+                is_bundle: false
+                prefix: 'App\Entity'
+                type: annotation

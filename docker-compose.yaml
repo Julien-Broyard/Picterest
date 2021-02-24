@@ -1,0 +1,28 @@
+version: '3.9'
+
+networks:
+  backend:
+    driver: bridge
+
+services:
+  postgres:
+    environment:
+      POSTGRES_DB: picterest
+      POSTGRES_PASSWORD: symfony
+      POSTGRES_USER: symfony
+    healthcheck:
+      interval: 10s
+      retries: 3
+      start_period: 30s
+      test: ['CMD', 'pg_isready', '-d', 'adsura', '-U', 'symfony']
+      timeout: 3s
+    image: postgres:13.2-alpine
+    networks:
+      - backend
+    ports: ['5432:5432']
+    restart: unless-stopped
+    volumes:
+      - postgres_data:/var/lib/postgresql/data:rw
+
+volumes:
+  postgres_data: {}

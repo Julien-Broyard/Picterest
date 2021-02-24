@@ -1,0 +1,9 @@
+nelmio_alice:
+    functions_blacklist:
+        - 'current'
+        - 'date'
+        - 'file'
+        - 'md5'
+        - 'sha1'
+        - 'shuffle'
+        - 'time'
