@@ -11,6 +11,8 @@
 
         {% block body %}{% endblock %}
 
-        <script src="{{ asset('js/navbar.js') }}"></script>
+        {% block scripts %}
+            <script src="{{ asset('js/navbar.js') }}"></script>
+        {% endblock %}
     </body>
 </html>

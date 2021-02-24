@@ -10,5 +10,21 @@
 
 
     <a href="{{ path('pin_edit', {'id': pin.id}) }}">Edit</a>
+    <a href="#" id="deleteButton">Delete</a>
     <a href="{{ path('app_home') }}">Go Back</a>
+
+    <form action="{{ path('pin_delete', {'id': pin.id}) }}" class="is-hidden" id="deleteForm">
+        <input name="_method" type="hidden" value="DELETE">
+    </form>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        document
+            .getElementById('deleteButton')
+            .addEventListener('click', e => {
+                e.preventDefault();
+                confirm('Are you sure ?') && document.getElementById('deleteForm').submit();
+            });
+    </script>
 {% endblock %}
