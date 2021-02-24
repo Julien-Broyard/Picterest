@@ -1,3 +1,6 @@
+###> user ###
+.idea
+###< user ###
 
 ###> symfony/framework-bundle ###
 /.env.local
