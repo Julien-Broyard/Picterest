@@ -104,9 +104,6 @@
             "./fixtures/.gitignore"
         ]
     },
-    "imagine/imagine": {
-        "version": "1.2.4"
-    },
     "knplabs/knp-time-bundle": {
         "version": "v1.15.0"
     },
