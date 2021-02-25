@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Pin;
 use App\Form\PinType;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -22,8 +23,8 @@ class PinController extends AbstractController
         $this->entityManager = $entityManager;
     }
 
-    #[Route('/create', name: 'create', methods: ['GET', 'POST'])]
-    public function create(Request $request, string $imageDir): Response
+    #[Route('/create', name: 'create', methods: ['POST'])]
+    public function create(Request $request, UserRepository $userRepository, string $imageDir): Response
     {
         $pin = new Pin();
 
@@ -41,6 +42,8 @@ class PinController extends AbstractController
                 $pin->setImageName($imageName);
             }
 
+            $pin->setAuthor($this->getUser());
+
             $this->entityManager->persist($pin);
             $this->entityManager->flush();
 
@@ -57,18 +60,21 @@ class PinController extends AbstractController
     #[Route('/delete/{id<[\da-fA-F]{8}\-[\da-fA-F]{4}\-[\da-fA-F]{4}\-[\da-fA-F]{4}\-[\da-fA-F]{12}>}', name: 'delete', methods: ['DELETE'])]
     public function delete(Pin $pin, Request $request): RedirectResponse
     {
-        if ($this->isCsrfTokenValid("pin_delete_".$pin->getId(), $request->request->get('crsf_token'))) {
+
+        if ($this->isCsrfTokenValid("pin_delete_".$pin->getId(), $request->request->get('_crsf_token'))) {
             $this->entityManager->remove($pin);
             $this->entityManager->flush();
 
             $this->addFlash('info', 'Pin successfully deleted.');
         }
 
+        $this->addFlash('danger', 'Invalid CRSF Token.');
+
         return $this->redirectToRoute('app_home');
 
     }
 
-    #[Route('/edit/{id<[\da-fA-F]{8}\-[\da-fA-F]{4}\-[\da-fA-F]{4}\-[\da-fA-F]{4}\-[\da-fA-F]{12}>}', name: 'edit', methods: ['GET', 'PUT'])]
+    #[Route('/edit/{id<[\da-fA-F]{8}\-[\da-fA-F]{4}\-[\da-fA-F]{4}\-[\da-fA-F]{4}\-[\da-fA-F]{12}>}', name: 'edit', methods: ['PUT'])]
     public function edit(Pin $pin, Request $request): Response
     {
         $form = $this->createForm(PinType::class, $pin, ['method' => 'PUT']);

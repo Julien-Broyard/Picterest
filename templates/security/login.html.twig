@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+    <section class="section">
+        <div class="container has-text-centered">
+            <h1 class="title is-size-2">Sign in</h1>
+
+            <div class="columns">
+                <div class="column is-three-fifths is-offset-one-fifth">
+                    <form method="post" novalidate>
+                        {% if error %}
+                            <div class="notification is-danger">
+                                {{ error.messageKey|trans(error.messageData, 'security') }}
+                            </div>
+                        {% endif %}
+
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                        <div class="field my-3">
+                            <label for="inputEmail" class="label is-pulled-left">Email</label>
+                            <p class="control has-icons-left">
+                                <input placeholder="Email" type="email" class="input" name="email" id="inputEmail" value="{{ lastUsername }}">
+                                <span class="icon is-small is-left">
+                                <i class="fas fa-envelope"></i>
+                            </span>
+                            </p>
+                        </div>
+                        <div class="field my-5">
+                            <label for="inputPassword" class="label is-pulled-left">Password</label>
+                            <p class="control has-icons-left">
+                                <input class="input" type="password" placeholder="Password" name="password" id="inputPassword">
+                                <span class="icon is-small is-left">
+                              <i class="fas fa-lock"></i>
+                            </span>
+                            </p>
+                        </div>
+                        <div class="field py-1 my-5">
+                            <label class="checkbox is-pulled-left">
+                                <input name="_remember_me" type="checkbox">
+                                Remember me
+                            </label>
+                        </div>
+                        <div class="field py-2 my-5">
+                            <p class="control">
+                                <button class="button is-link is-fullwidth" type="submit">Login</button>
+                            </p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

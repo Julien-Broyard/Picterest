@@ -26,7 +26,7 @@
                                 <small class="has-text-grey">
                                     Submitted
                                     <time datetime="{{ pin.createdAt|date('Y-m-d H:i:s') }}">{{ pin.createdAt|ago }}</time>
-                                    by [OWNER FULL NAME]
+                                    by {{ pin.author.fullName }}
                                 </small>
                                 <hr>
                                 <p>{{ pin.description }}</p>
@@ -70,7 +70,7 @@
         id="deleteForm"
         method="post"
     >
-        <input name="crsf_token" type="hidden" value="{{ csrf_token('pin_delete_' ~ pin.id) }}">
+        <input name="_crsf_token" type="hidden" value="{{ csrf_token('pin_delete_' ~ pin.id) }}">
         <input name="_method" type="hidden" value="DELETE">
     </form>
 {% endblock %}

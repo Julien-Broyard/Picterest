@@ -12,7 +12,14 @@
     <div class="container">
         <div class="navbar-menu" id="mainNavbar">
             <div class="navbar-end">
-                <a class="navbar-item" href="{{ path('pin_create') }}">Create</a>
+                {% if app.user %}
+{#                    <a class="navbar-item" href="{{ path('app_account') }}">Account</a>#}
+                    <a class="navbar-item" href="{{ path('app_logout') }}">Logout</a>
+                    <a class="navbar-item" href="{{ path('pin_create') }}">New Pin</a>
+                {% else %}
+{#                    <a class="navbar-item" href="{{ path('app_register') }}">Register</a>#}
+                    <a class="navbar-item" href="{{ path('app_login') }}">Login</a>
+                {% endif %}
             </div>
         </div>
     </div>
