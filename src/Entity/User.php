@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\IdGenerator\UuidV4Generator;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -56,6 +58,17 @@ class User implements UserInterface
      */
     private string $password;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Pin::class, mappedBy="author", orphanRemoval=true)
+     * @var Pin[] $pins
+     */
+    private $pins;
+
+    public function __construct()
+    {
+        $this->pins = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -83,6 +96,11 @@ class User implements UserInterface
         $this->lastName = $lastName;
 
         return $this;
+    }
+
+    public function getFullName(): string
+    {
+        return sprintf("%s %s", $this->firstName, $this->lastName);
     }
 
     public function getEmail(): ?string
@@ -136,7 +154,34 @@ class User implements UserInterface
 
     public function eraseCredentials()
     {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
+    }
+
+    /**
+     * @return Collection|Pin[]
+     */
+    public function getPins(): Collection
+    {
+        return $this->pins;
+    }
+
+    public function addPin(Pin $pin): self
+    {
+        if (!$this->pins->contains($pin)) {
+            $this->pins[] = $pin;
+            $pin->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removePin(Pin $pin): self
+    {
+        if ($this->pins->removeElement($pin)) {
+            if ($pin->getAuthor() === $this) {
+                $pin->setAuthor(null);
+            }
+        }
+
+        return $this;
     }
 }
