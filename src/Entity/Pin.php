@@ -23,7 +23,7 @@ class Pin
      * @ORM\CustomIdGenerator(class=UuidV4Generator::class)
      * @ORM\GeneratedValue(strategy="CUSTOM")
      */
-    private string $id = '';
+    private ?string $id;
 
     /**
      * @ORM\Column(type="text")

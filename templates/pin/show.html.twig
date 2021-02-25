@@ -2,18 +2,74 @@
 
 {% block title pin.title %}
 
+ {% if pin.imageName is null %}
+     {% set image = "https://via.placeholder.com/640x480" %}
+ {% else %}
+     {% set image = 'uploads/images/' ~ pin.imageName %}
+ {% endif %}
+
 {% block body %}
-    <article>
-        <h1>{{ pin.title }}</h1>
-        <p>{{ pin.description }}</p>
-    </article>
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-half is-offset-one-quarter">
+                    <div class="card">
+                        <div class="card-image">
+                            <figure class="image is-4by3">
+                                <img alt="{{ pin.description }}" src="{{ asset(image) }}">
+                            </figure>
+                        </div>
+                        <div class="card-content">
+                            <div class="content">
+                                <span class="has-text-weight-semibold subtitle py-3">{{ pin.title }}</span>
+                                <br>
+                                <small class="has-text-grey">
+                                    Submitted
+                                    <time datetime="{{ pin.createdAt|date('Y-m-d H:i:s') }}">{{ pin.createdAt|ago }}</time>
+                                    by [OWNER FULL NAME]
+                                </small>
+                                <hr>
+                                <p>{{ pin.description }}</p>
+                                <div class="field has-addons">
+                                    <div class="control">
+                                        <a class="button is-link" href="{{ path('app_home') }}" role="button">
+                                            <span class="icon is-small">
+                                                <i class="fas fa-undo-alt fa-align-left"></i>
+                                            </span>
+                                            <span>Go Back</span>
+                                        </a>
+                                    </div>
+                                    <div class="control">
+                                        <a class="button is-link" href="{{ path('pin_edit', {'id': pin.id}) }}">
+                                            <span class="icon is-small">
+                                                <i class="fas fa-edit fa-align-center"></i>
+                                            </span>
+                                            <span>Edit</span>
+                                        </a>
+                                    </div>
+                                    <div class="control">
+                                        <a class="button is-danger" href="#" id="deleteButton" role="button">
+                                            <span class="icon is-small">
+                                                <i class="fas fa-trash fa-align-right"></i>
+                                            </span>
+                                            <span>Delete</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-
-    <a href="{{ path('pin_edit', {'id': pin.id}) }}">Edit</a>
-    <a href="#" id="deleteButton">Delete</a>
-    <a href="{{ path('app_home') }}">Go Back</a>
-
-    <form action="{{ path('pin_delete', {'id': pin.id}) }}" class="is-hidden" id="deleteForm" method="post">
+    <form
+        action="{{ path('pin_delete', {'id': pin.id}) }}"
+        class="is-hidden"
+        id="deleteForm"
+        method="post"
+    >
         <input name="crsf_token" type="hidden" value="{{ csrf_token('pin_delete_' ~ pin.id) }}">
         <input name="_method" type="hidden" value="DELETE">
     </form>

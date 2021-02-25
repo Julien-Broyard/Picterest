@@ -5,18 +5,39 @@
 {% block body %}
     <section class="section">
         <div class="container">
-            <h1 class="title pb-4">{{ pluralize(pins|length, '%d Pin', '%d Pins', 'No Pins') }}</h1>
+            <h1 class="has-text-centered title pb-4">{{ pluralize(pins|length, '%d Pin', '%d Pins', 'No Pins') }}</h1>
+            <div class="columns is-multiline">
+                {% for pin in pins %}
+                    {% if pin.imageName is null %}
+                        {% set image = "https://via.placeholder.com/640x480" %}
+                    {% else %}
+                        {% set image = 'uploads/images/' ~ pin.imageName %}
+                    {% endif %}
 
-            {% for pin in pins %}
-                <p class="subtitle">
-                    <a href="{{ path('pin_show', {'id': pin.id}) }}">
-                        {{ pin.title }}
-                    </a>
-                </p>
-                <img src="{{ asset('uploads/images/' ~ pin.imageName) }}" />
-                <p class="content">{{ pin.description|u.truncate(30, '...', false) }}</p>
-                <p class="content">Submitted {{ pin.createdAt|ago }}</p>
-            {% endfor %}
+                    <div class="column is-4">
+                        <div class="card">
+                            <div class="card-image">
+                                <figure class="image is-4by3">
+                                    <img alt="{{ pin.description }}" src="{{ asset(image) }}">
+                                </figure>
+                            </div>
+                            <div class="card-content">
+                                <div class="content">
+                                    <a class="has-text-weight-semibold subtitle" href="{{ path('pin_show', {'id': pin.id}) }}">
+                                        {{ pin.title }}
+                                    </a>
+                                    <br>
+                                    <small class="has-text-grey">
+                                        Submitted
+                                        <time datetime="{{ pin.createdAt|date('Y-m-d H:i:s') }}">{{ pin.createdAt|ago }}</time>
+                                        by [OWNER FULL NAME]
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
     </section>
 {% endblock %}
