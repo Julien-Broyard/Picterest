@@ -13,6 +13,7 @@
                         {{ pin.title }}
                     </a>
                 </p>
+                <img src="{{ asset('uploads/images/' ~ pin.imageName) }}" />
                 <p class="content">{{ pin.description|u.truncate(30, '...', false) }}</p>
                 <p class="content">Submitted {{ pin.createdAt|ago }}</p>
             {% endfor %}

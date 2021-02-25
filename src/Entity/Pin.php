@@ -6,6 +6,7 @@ use App\Entity\Traits\Timestampable;
 use App\Repository\PinRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\IdGenerator\UuidV4Generator;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -22,7 +23,7 @@ class Pin
      * @ORM\CustomIdGenerator(class=UuidV4Generator::class)
      * @ORM\GeneratedValue(strategy="CUSTOM")
      */
-    private string $id;
+    private string $id = '';
 
     /**
      * @ORM\Column(type="text")

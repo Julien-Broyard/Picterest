@@ -1,5 +1,6 @@
 ###> user ###
 .idea
+/public/uploads/
 ###< user ###
 
 ###> symfony/framework-bundle ###

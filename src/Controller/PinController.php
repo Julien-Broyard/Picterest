@@ -6,6 +6,7 @@ use App\Entity\Pin;
 use App\Form\PinType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,7 +23,7 @@ class PinController extends AbstractController
     }
 
     #[Route('/create', name: 'create', methods: ['GET', 'POST'])]
-    public function create(Request $request): Response
+    public function create(Request $request, string $imageDir): Response
     {
         $pin = new Pin();
 
@@ -30,6 +31,16 @@ class PinController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if ($image = $form['image']->getData()) {
+                $imageName = \bin2hex(\random_bytes(6)).'.'.$image->guessExtension();
+
+                try {
+                    $image->move($imageDir, $imageName);
+                } catch (FileException) {}
+
+                $pin->setImageName($imageName);
+            }
+
             $this->entityManager->persist($pin);
             $this->entityManager->flush();
 
