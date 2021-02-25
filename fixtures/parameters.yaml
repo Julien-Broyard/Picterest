@@ -1,0 +1,2 @@
+parameters:
+    app.user.password: $argon2id$v=19$m=65536,t=4,p=1$TmxOVDc3bHZPV1pFUGg4TA$ThQSjjmLz83MlGOLhacVWg # user

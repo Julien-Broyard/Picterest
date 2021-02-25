@@ -14,7 +14,7 @@ services:
       interval: 10s
       retries: 3
       start_period: 30s
-      test: ['CMD', 'pg_isready', '-d', 'adsura', '-U', 'symfony']
+      test: ['CMD', 'pg_isready', '-d', 'picterest', '-U', 'symfony']
       timeout: 3s
     image: postgres:13.2-alpine
     networks:
