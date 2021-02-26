@@ -5,9 +5,9 @@
 {% block body %}
     <section class="section">
         <div class="container">
-            <h1 class="has-text-centered title pb-4">{{ pluralize(pins|length, '%d Pin', '%d Pins', 'No Pins') }}</h1>
+            <h1 class="has-text-centered title pb-4">{{ pluralize(pagination.getTotalItemCount, '%d Pin', '%d Pins', 'No Pins') }}</h1>
             <div class="columns is-multiline">
-                {% for pin in pins %}
+                {% for pin in pagination %}
                     {% if pin.imageName is null %}
                         {% set image = "https://via.placeholder.com/640x480" %}
                     {% else %}
@@ -37,6 +37,12 @@
                         </div>
                     </div>
                 {% endfor %}
+            </div>
+
+            <div class="columns">
+                <div class="column is-three-fifths is-offset-one-fifth">
+                    {{ knp_pagination_render(pagination) }}
+                </div>
             </div>
         </div>
     </section>

@@ -1,5 +1,5 @@
 App\Entity\Pin:
-  pin_{1..10}:
+  pin_{1..100}:
     author: '@user_*'
     description: <sentence()>
     title: <word()>

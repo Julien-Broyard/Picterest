@@ -113,6 +113,12 @@
             "./fixtures/.gitignore"
         ]
     },
+    "knplabs/knp-components": {
+        "version": "v3.0.0"
+    },
+    "knplabs/knp-paginator-bundle": {
+        "version": "v5.4.2"
+    },
     "knplabs/knp-time-bundle": {
         "version": "v1.15.0"
     },

@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Repository\PinRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -11,10 +13,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'home')]
-    public function home(PinRepository $pinRepository): Response
+    public function home(PaginatorInterface $paginator, PinRepository $pinRepository, Request $request): Response
     {
-        $pins = $pinRepository->findBy([], ['createdAt' => 'DESC']);
+        $pagination = $paginator->paginate(
+            $pinRepository->getPaginatorQuery(),
+            $request->query->getInt('page', 1),
+            6,
+        );
 
-        return $this->render('home.html.twig', compact('pins'));
+        return $this->render('home.html.twig', compact('pagination'));
     }
 }
