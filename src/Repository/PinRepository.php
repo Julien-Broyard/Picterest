@@ -15,8 +15,6 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class PinRepository extends ServiceEntityRepository
 {
-    public const PAGINATOR_PER_PAGE = 6;
-
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Pin::class);

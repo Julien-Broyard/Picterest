@@ -1,5 +1,12 @@
 App\Entity\User:
-    user_{1..3}:
+    admin_1:
+        email: admin@gmail.com
+        firstName: <firstName()>
+        lastName: <lastName()>
+        password: <{app.admin.password}>
+        roles: ['ROLE_USER', 'ROLE_ADMIN']
+
+    user_{1..4}:
         email: <email()>
         firstName: <firstName()>
         lastName: <lastName()>

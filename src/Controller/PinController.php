@@ -75,12 +75,22 @@ class PinController extends AbstractController
     }
 
     #[Route('/edit/{id<[\da-fA-F]{8}\-[\da-fA-F]{4}\-[\da-fA-F]{4}\-[\da-fA-F]{4}\-[\da-fA-F]{12}>}', name: 'edit', methods: ['PUT'])]
-    public function edit(Pin $pin, Request $request): Response
+    public function edit(Pin $pin, Request $request, string $imageDir): Response
     {
         $form = $this->createForm(PinType::class, $pin, ['method' => 'PUT']);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if ($image = $form['image']->getData()) {
+                $imageName = \bin2hex(\random_bytes(6)).'.'.$image->guessExtension();
+
+                try {
+                    $image->move($imageDir, $imageName);
+                } catch (FileException) {}
+
+                $pin->setImageName($imageName);
+            }
+
             $this->entityManager->persist($pin);
             $this->entityManager->flush();
 

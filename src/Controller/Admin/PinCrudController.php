@@ -10,6 +10,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
@@ -40,6 +41,11 @@ class PinCrudController extends AbstractCrudController
         yield AssociationField::new('author');
         yield TextField::new('title');
         yield TextEditorField::new('description');
+
+        yield ImageField::new('imageName')
+            ->setBasePath('/uploads/images')
+            ->setLabel('Image')
+        ;
 
         yield DateTimeField::new('createdAt')->setFormTypeOptions([
             'html5' => true,
