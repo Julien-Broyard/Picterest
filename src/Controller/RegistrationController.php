@@ -54,7 +54,7 @@ class RegistrationController extends AbstractController
                 (new TemplatedEmail())
                     ->to($user->getEmail())
                     ->subject('Please Confirm your Email | Picterest')
-                    ->htmlTemplate('registration/emails/confirmation_email.html.twig')
+                    ->htmlTemplate('security/registration/emails/confirmation_email.html.twig')
             );
 
             return $guardHandler->authenticateUserAndHandleSuccess(
@@ -65,7 +65,7 @@ class RegistrationController extends AbstractController
             );
         }
 
-        return $this->render('registration/register.html.twig', [
+        return $this->render('security/registration/register.html.twig', [
             'form' => $form->createView(),
         ]);
     }

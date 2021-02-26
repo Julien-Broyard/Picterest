@@ -13,6 +13,7 @@
         "doctrine/doctrine-migrations-bundle": "^3.0",
         "doctrine/orm": "^2.8",
         "easycorp/easyadmin-bundle": "^3.2",
+        "imagine/imagine": "^1.2",
         "knplabs/knp-paginator-bundle": "^5.4",
         "knplabs/knp-time-bundle": "^1.15",
         "phpdocumentor/reflection-docblock": "^5.2",
@@ -44,6 +45,7 @@
         "symfony/validator": "5.2.*",
         "symfony/web-link": "5.2.*",
         "symfony/yaml": "5.2.*",
+        "symfonycasts/reset-password-bundle": "^1.4",
         "symfonycasts/verify-email-bundle": "^1.2",
         "twig/extra-bundle": "^2.12|^3.0",
         "twig/string-extra": "^3.3",
@@ -93,7 +95,9 @@
         "post-update-cmd": [
             "@auto-scripts"
         ],
-        "workers:run": "symfony run -d --watch=config,src,templates,vendor symfony console messenger:consume async",
+        "server:start": "symfony serve -d",
+        "server:stop": "symfony server:stop",
+        "workers:start": "symfony run -d --watch=config,src,templates,vendor symfony console messenger:consume async",
         "workers:stop": "symfony console messenger:stop-workers"
     },
     "conflict": {

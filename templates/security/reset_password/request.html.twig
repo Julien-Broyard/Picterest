@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Request a password reset' %}
+
+{% block body %}
+    <section class="section">
+        <div class="container has-text-centered">
+            <h1 class="title is-size-2">Request a password reset</h1>
+
+            <div class="column is-three-fifths is-offset-one-fifth">
+                {{ form(form) }}
+            </div>
+        </div>
+    </section>
+{% endblock %}
