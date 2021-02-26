@@ -50,6 +50,11 @@ class Pin
      */
     private UserInterface $author;
 
+    public function __toString(): string
+    {
+        return $this->title;
+    }
+
     public function getId(): ?string
     {
         return $this->id;

@@ -69,7 +69,12 @@ class User implements UserInterface
         $this->pins = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function __toString(): string
+    {
+        return sprintf('%s [%s]', $this->getFullName(), $this->getEmail());
+    }
+
+    public function getId(): ?string
     {
         return $this->id;
     }

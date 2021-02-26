@@ -28,3 +28,4 @@ security:
                 secret: '%kernel.secret%'
 
     access_control:
+        - { path: ^/admin, roles: ROLE_ADMIN }
