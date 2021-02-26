@@ -52,7 +52,6 @@ class RegistrationController extends AbstractController
 
             $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
                 (new TemplatedEmail())
-                    ->from(new Address($this->getParameter('picterest_email'), 'Picterest Mail Bot'))
                     ->to($user->getEmail())
                     ->subject('Please Confirm your Email | Picterest')
                     ->htmlTemplate('registration/emails/confirmation_email.html.twig')

@@ -27,6 +27,7 @@
         "symfony/http-client": "5.2.*",
         "symfony/intl": "5.2.*",
         "symfony/mailer": "5.2.*",
+        "symfony/messenger": "5.2.*",
         "symfony/mime": "5.2.*",
         "symfony/monolog-bundle": "^3.1",
         "symfony/notifier": "5.2.*",
@@ -91,7 +92,9 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
-        ]
+        ],
+        "workers:run": "symfony run -d --watch=config,src,templates,vendor symfony console messenger:consume async",
+        "workers:stop": "symfony console messenger:stop-workers"
     },
     "conflict": {
         "symfony/symfony": "*"
