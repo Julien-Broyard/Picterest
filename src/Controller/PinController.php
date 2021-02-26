@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Pin;
-use App\Form\PinType;
+use App\Form\PinFormType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,11 +24,13 @@ class PinController extends AbstractController
     }
 
     #[Route('/create', name: 'create', methods: ['POST'])]
-    public function create(Request $request, UserRepository $userRepository, string $imageDir): Response
+    public function create(Request $request, string $imageDir): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
+
         $pin = new Pin();
 
-        $form = $this->createForm(PinType::class, $pin);
+        $form = $this->createForm(PinFormType::class, $pin);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -60,6 +62,11 @@ class PinController extends AbstractController
     #[Route('/delete/{id<[\da-fA-F]{8}\-[\da-fA-F]{4}\-[\da-fA-F]{4}\-[\da-fA-F]{4}\-[\da-fA-F]{12}>}', name: 'delete', methods: ['DELETE'])]
     public function delete(Pin $pin, Request $request): RedirectResponse
     {
+        if ($this->getUser() !== $pin->getAuthor()) {
+            $this->addFlash('danger', 'You can\'t delete this pin.');
+
+            $this->redirectToRoute('pin_show', ['id' => $pin->getId()]);
+        }
 
         if ($this->isCsrfTokenValid("pin_delete_".$pin->getId(), $request->request->get('_crsf_token'))) {
             $this->entityManager->remove($pin);
@@ -77,7 +84,13 @@ class PinController extends AbstractController
     #[Route('/edit/{id<[\da-fA-F]{8}\-[\da-fA-F]{4}\-[\da-fA-F]{4}\-[\da-fA-F]{4}\-[\da-fA-F]{12}>}', name: 'edit', methods: ['PUT'])]
     public function edit(Pin $pin, Request $request, string $imageDir): Response
     {
-        $form = $this->createForm(PinType::class, $pin, ['method' => 'PUT']);
+        if ($this->getUser() !== $pin->getAuthor()) {
+            $this->addFlash('danger', 'You can\'t edit this pin.');
+
+            return $this->redirectToRoute('pin_show', ['id' => $pin->getId()]);
+        }
+
+        $form = $this->createForm(PinFormType::class, $pin, ['method' => 'PUT']);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

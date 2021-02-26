@@ -39,22 +39,24 @@
                                             <span>Go Back</span>
                                         </a>
                                     </div>
-                                    <div class="control">
-                                        <a class="button is-link" href="{{ path('pin_edit', {'id': pin.id}) }}">
+                                    {% if app.user == pin.author %}
+                                        <div class="control">
+                                            <a class="button is-link" href="{{ path('pin_edit', {'id': pin.id}) }}">
                                             <span class="icon is-small">
                                                 <i class="fas fa-edit fa-align-center"></i>
                                             </span>
-                                            <span>Edit</span>
-                                        </a>
-                                    </div>
-                                    <div class="control">
-                                        <a class="button is-danger" href="#" id="deleteButton" role="button">
+                                                <span>Edit</span>
+                                            </a>
+                                        </div>
+                                        <div class="control">
+                                            <a class="button is-danger" href="#" id="deleteButton" role="button">
                                             <span class="icon is-small">
                                                 <i class="fas fa-trash fa-align-right"></i>
                                             </span>
-                                            <span>Delete</span>
-                                        </a>
-                                    </div>
+                                                <span>Delete</span>
+                                            </a>
+                                        </div>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
@@ -77,6 +79,7 @@
 
 {% block scripts %}
     <script>
+        {# Add SweetAlert2 #}
         document
             .getElementById('deleteButton')
             .addEventListener('click', e => {

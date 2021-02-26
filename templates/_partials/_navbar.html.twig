@@ -14,10 +14,10 @@
             <div class="navbar-end">
                 {% if app.user %}
 {#                    <a class="navbar-item" href="{{ path('app_account') }}">Account</a>#}
-                    <a class="navbar-item" href="{{ path('app_logout') }}">Logout</a>
                     <a class="navbar-item" href="{{ path('pin_create') }}">New Pin</a>
+                    <a class="navbar-item" href="{{ path('app_logout') }}">Logout</a>
                 {% else %}
-{#                    <a class="navbar-item" href="{{ path('app_register') }}">Register</a>#}
+                    <a class="navbar-item" href="{{ path('app_register') }}">Register</a>
                     <a class="navbar-item" href="{{ path('app_login') }}">Login</a>
                 {% endif %}
             </div>

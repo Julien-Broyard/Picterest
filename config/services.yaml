@@ -1,4 +1,5 @@
 parameters:
+    picterest_email: 'picterest@no-reply.com'
 
 services:
     _defaults:

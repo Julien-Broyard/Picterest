@@ -64,6 +64,11 @@ class User implements UserInterface
      */
     private $pins;
 
+    /**
+     * @ORM\Column(type="boolean", options={"default": false})
+     */
+    private $isVerified = false;
+
     public function __construct()
     {
         $this->pins = new ArrayCollection();
@@ -186,6 +191,18 @@ class User implements UserInterface
                 $pin->setAuthor(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isVerified(): bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): self
+    {
+        $this->isVerified = $isVerified;
 
         return $this;
     }
