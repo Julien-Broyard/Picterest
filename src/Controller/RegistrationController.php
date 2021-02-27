@@ -33,6 +33,12 @@ class RegistrationController extends AbstractController
         Request $request,
         UserPasswordEncoderInterface $passwordEncoder
     ): Response {
+        if ($this->getUser()) {
+            $this->addFlash('info', 'You\'re already logged in.');
+
+            return $this->redirectToRoute('app_home');
+        }
+
         $user = new User();
 
         $form = $this->createForm(RegistrationFormType::class, $user);
