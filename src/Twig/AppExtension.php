@@ -1,9 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of the Picterest source code.
+ *
+ * (c) Julien Broyard <broyard.dev@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Twig;
 
 use Twig\Extension\AbstractExtension;
-use Twig\TwigFilter;
 use Twig\TwigFunction;
 
 class AppExtension extends AbstractExtension
@@ -18,11 +28,11 @@ class AppExtension extends AbstractExtension
     public function getPluralizedString(int $count, string $singular, string $plural, ?string $none = null): string
     {
         if (!is_numeric($count)) {
-            throw new \Exception('$count must be numeric.');
+            throw new \TypeError('$count must be numeric.');
         }
 
         $none = $none ?? $plural;
-        $string = (($count === 0) ? $none : (($count === 1) ? $singular : $plural));
+        $string = ((0 === $count) ? $none : ((1 === $count) ? $singular : $plural));
 
         return sprintf($string, $count);
     }

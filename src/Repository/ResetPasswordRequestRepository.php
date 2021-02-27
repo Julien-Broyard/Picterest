@@ -1,8 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of the Picterest source code.
+ *
+ * (c) Julien Broyard <broyard.dev@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Repository;
 
 use App\Entity\ResetPasswordRequest;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use SymfonyCasts\Bundle\ResetPassword\Model\ResetPasswordRequestInterface;
@@ -24,6 +36,9 @@ class ResetPasswordRequestRepository extends ServiceEntityRepository implements 
         parent::__construct($registry, ResetPasswordRequest::class);
     }
 
+    /**
+     * @param User $user
+     */
     public function createResetPasswordRequest(object $user, \DateTimeInterface $expiresAt, string $selector, string $hashedToken): ResetPasswordRequestInterface
     {
         return new ResetPasswordRequest($user, $expiresAt, $selector, $hashedToken);

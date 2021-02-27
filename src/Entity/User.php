@@ -1,5 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of the Picterest source code.
+ *
+ * (c) Julien Broyard <broyard.dev@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Entity;
 
 use App\Repository\UserRepository;
@@ -10,7 +21,6 @@ use Symfony\Bridge\Doctrine\IdGenerator\UuidV4Generator;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
-
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -68,7 +78,8 @@ class User implements UserInterface
 
     /**
      * @ORM\OneToMany(targetEntity=Pin::class, mappedBy="author", orphanRemoval=true)
-     * @var Pin[] $pins
+     *
+     * @var Pin[]|ArrayCollection<mixed, mixed>
      */
     private $pins;
 
@@ -118,7 +129,7 @@ class User implements UserInterface
 
     public function getFullName(): string
     {
-        return sprintf("%s %s", $this->firstName, $this->lastName);
+        return sprintf('%s %s', $this->firstName, $this->lastName);
     }
 
     public function getEmail(): ?string
@@ -170,7 +181,7 @@ class User implements UserInterface
         return null;
     }
 
-    public function eraseCredentials()
+    public function eraseCredentials(): void
     {
     }
 

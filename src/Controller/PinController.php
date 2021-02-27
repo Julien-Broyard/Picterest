@@ -1,10 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of the Picterest source code.
+ *
+ * (c) Julien Broyard <broyard.dev@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Controller;
 
 use App\Entity\Pin;
+use App\Entity\User;
 use App\Form\PinFormType;
-use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -35,16 +46,21 @@ class PinController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             if ($image = $form['image']->getData()) {
-                $imageName = \bin2hex(\random_bytes(6)).'.'.$image->guessExtension();
+                $imageName = bin2hex(random_bytes(6)).'.'.$image->guessExtension();
 
                 try {
                     $image->move($imageDir, $imageName);
-                } catch (FileException) {}
+                } catch (FileException $e) {
+                    // @ignoreException
+                }
 
                 $pin->setImageName($imageName);
             }
 
-            $pin->setAuthor($this->getUser());
+            /** @var User $user */
+            $user = $this->getUser();
+
+            $pin->setAuthor($user);
 
             $this->entityManager->persist($pin);
             $this->entityManager->flush();
@@ -68,7 +84,7 @@ class PinController extends AbstractController
             $this->redirectToRoute('pin_show', ['id' => $pin->getId()]);
         }
 
-        if ($this->isCsrfTokenValid("pin_delete_".$pin->getId(), $request->request->get('_crsf_token'))) {
+        if ($this->isCsrfTokenValid('pin_delete_'.$pin->getId(), $request->request->get('_crsf_token'))) {
             $this->entityManager->remove($pin);
             $this->entityManager->flush();
 
@@ -78,7 +94,6 @@ class PinController extends AbstractController
         $this->addFlash('danger', 'Invalid CRSF Token.');
 
         return $this->redirectToRoute('app_home');
-
     }
 
     #[Route('/edit/{id<[\da-fA-F]{8}\-[\da-fA-F]{4}\-[\da-fA-F]{4}\-[\da-fA-F]{4}\-[\da-fA-F]{12}>}', name: 'edit', methods: ['PUT'])]
@@ -95,11 +110,13 @@ class PinController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             if ($image = $form['image']->getData()) {
-                $imageName = \bin2hex(\random_bytes(6)).'.'.$image->guessExtension();
+                $imageName = bin2hex(random_bytes(6)).'.'.$image->guessExtension();
 
                 try {
                     $image->move($imageDir, $imageName);
-                } catch (FileException) {}
+                } catch (FileException $e) {
+                    // @ignoreException
+                }
 
                 $pin->setImageName($imageName);
             }
@@ -111,6 +128,7 @@ class PinController extends AbstractController
 
             return $this->redirectToRoute('pin_show', ['id' => $pin->getId()]);
         }
+
         return $this->render('pin/edit.html.twig', [
             'form' => $form->createView(),
         ]);

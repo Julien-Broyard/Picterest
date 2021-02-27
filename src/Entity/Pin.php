@@ -1,5 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of the Picterest source code.
+ *
+ * (c) Julien Broyard <broyard.dev@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Entity;
 
 use App\Entity\Traits\Timestampable;
@@ -56,7 +67,7 @@ class Pin
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="pins")
      * @ORM\JoinColumn(nullable=false)
      */
-    private UserInterface $author;
+    private ?UserInterface $author;
 
     public function __toString(): string
     {
@@ -109,7 +120,7 @@ class Pin
         return $this->author;
     }
 
-    public function setAuthor(UserInterface $author): self
+    public function setAuthor(?UserInterface $author): self
     {
         $this->author = $author;
 

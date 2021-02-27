@@ -93,6 +93,15 @@
     "egulias/email-validator": {
         "version": "2.1.25"
     },
+    "ergebnis/composer-normalize": {
+        "version": "2.13.2"
+    },
+    "ergebnis/json-normalizer": {
+        "version": "1.0.2"
+    },
+    "ergebnis/json-printer": {
+        "version": "3.1.1"
+    },
     "fakerphp/faker": {
         "version": "v1.13.0"
     },
@@ -113,6 +122,9 @@
             "./fixtures/.gitignore"
         ]
     },
+    "justinrainbow/json-schema": {
+        "version": "5.2.10"
+    },
     "knplabs/knp-components": {
         "version": "v3.0.0"
     },
@@ -129,6 +141,9 @@
         "version": "3.3.0"
     },
     "laminas/laminas-zendframework-bridge": {
+        "version": "1.1.1"
+    },
+    "localheinz/diff": {
         "version": "1.1.1"
     },
     "monolog/monolog": {

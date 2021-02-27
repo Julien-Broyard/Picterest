@@ -1,5 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of the Picterest source code.
+ *
+ * (c) Julien Broyard <broyard.dev@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Controller;
 
 use App\Entity\User;
@@ -11,7 +22,6 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use SymfonyCasts\Bundle\ResetPassword\Controller\ResetPasswordControllerTrait;
@@ -83,6 +93,7 @@ class ResetPasswordController extends AbstractController
         }
 
         try {
+            /** @var User $user */
             $user = $this->resetPasswordHelper->validateTokenAndFetchUser($token);
         } catch (ResetPasswordExceptionInterface $e) {
             $this->addFlash('danger', sprintf(
@@ -101,7 +112,7 @@ class ResetPasswordController extends AbstractController
 
             $encodedPassword = $passwordEncoder->encodePassword(
                 $user,
-                $form->get('plainPassword')->getData()
+                $form['plainPassword']->getData()
             );
 
             $user->setPassword($encodedPassword);
@@ -137,7 +148,7 @@ class ResetPasswordController extends AbstractController
             ->to($user->getEmail())
             ->subject('Your password reset request | Picterest')
             ->htmlTemplate('security/reset_password/emails/email.html.twig')
-            ->context(['resetToken' => $resetToken,])
+            ->context(['resetToken' => $resetToken])
         ;
 
         $mailer->send($email);

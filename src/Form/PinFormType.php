@@ -1,5 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of the Picterest source code.
+ *
+ * (c) Julien Broyard <broyard.dev@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Form;
 
 use App\Entity\Pin;
@@ -14,7 +25,7 @@ use Symfony\Component\Validator\Constraints\Image;
 
 class PinFormType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('title', TextType::class)
@@ -39,12 +50,12 @@ class PinFormType extends AbstractType
         ;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'attr' => ['novalidate' => 'novalidate'],
             'data_class' => Pin::class,
-            'validation_groups' => ['Default', 'pin_creation_update']
+            'validation_groups' => ['Default', 'pin_creation_update'],
         ]);
     }
 }

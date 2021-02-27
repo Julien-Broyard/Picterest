@@ -1,5 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of the Picterest source code.
+ *
+ * (c) Julien Broyard <broyard.dev@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Security;
 
 use App\Entity\User;
@@ -65,7 +76,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
         return $credentials;
     }
 
-    public function getUser($credentials, UserProviderInterface $userProvider): UserInterface|null
+    public function getUser($credentials, UserProviderInterface $userProvider): UserInterface | null
     {
         $token = new CsrfToken('authenticate', $credentials['csrf_token']);
 
@@ -98,6 +109,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $providerKey): RedirectResponse
     {
+        // @phpstan-ignore-next-line
         $request->getSession()->getFlashBag()->add('success', 'You\'ve been logged in !');
 
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
