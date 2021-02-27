@@ -23,7 +23,12 @@ class PinFormType extends AbstractType
                 'attr' => ['class' => 'file-input'],
                 'constraints' => [
                     new Image(
-                        ['maxSize' => '2M', 'groups' => ['pin_creation_update']]
+                        [
+                            'groups' => ['pin_creation_update'],
+                            'maxSize' => '2M',
+                            'mimeTypes' => ['image/jpeg', 'image/png'],
+                            'mimeTypesMessage' => 'Only .jpeg and .png are accepted.',
+                        ]
                     ),
                 ],
                 'mapped' => false,

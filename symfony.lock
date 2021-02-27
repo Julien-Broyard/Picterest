@@ -113,9 +113,6 @@
             "./fixtures/.gitignore"
         ]
     },
-    "imagine/imagine": {
-        "version": "1.2.4"
-    },
     "knplabs/knp-components": {
         "version": "v3.0.0"
     },

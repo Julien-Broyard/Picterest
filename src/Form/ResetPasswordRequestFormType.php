@@ -19,11 +19,12 @@ class ResetPasswordRequestFormType extends AbstractType
                 'constraints' => [
                     new Email([
                         'groups' => ['reset_password'],
-                        'message' => 'The submitted email is not valid.',
+                        'message' => '{{ value }} is not a valid email.',
+                        'mode' => 'html5',
                     ]),
                     new NotBlank([
                         'groups' => ['reset_password'],
-                        'message' => 'Please enter your email.',
+                        'message' => 'The email is required.',
                     ]),
                 ],
             ])

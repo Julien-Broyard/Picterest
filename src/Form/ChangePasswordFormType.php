@@ -20,11 +20,12 @@ class ChangePasswordFormType extends AbstractType
                 'constraints' => [
                     new NotBlank([
                         'groups' => ['change_password'],
-                        'message' => 'Please enter a password.',
+                        'message' => 'The password is required.',
                     ]),
                     new Length([
                         'groups' => ['change_password'],
                         'max' => 255,
+                        'maxMessage' => 'Your password should not exceed {{ limit }} characters.',
                         'min' => 6,
                         'minMessage' => 'Your password should be at least {{ limit }} characters.',
                     ]),

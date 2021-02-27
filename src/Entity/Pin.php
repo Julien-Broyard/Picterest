@@ -28,15 +28,23 @@ class Pin
     /**
      * @ORM\Column(type="text")
      */
-    #[Assert\NotBlank(groups: ['pin_creation_update'])]
-    #[Assert\Length(min: 10, groups: ['pin_creation_update'])]
+    #[Assert\NotBlank(message: 'The description is required.', groups: ['pin_creation_update'])]
+    #[Assert\Length(
+        min: 10,
+        minMessage: 'Your description must be at least {{ limit }} characters long.',
+        groups: ['pin_creation_update']
+    )]
     private ?string $description;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    #[Assert\NotBlank(groups: ['pin_creation_update'])]
-    #[Assert\Length(min: 3, groups: ['pin_creation_update'])]
+    #[Assert\NotBlank(message: 'The title is required.', groups: ['pin_creation_update'])]
+    #[Assert\Length(
+        min: 3,
+        minMessage: 'Your title must be at least {{ limit }} characters long.',
+        groups: ['pin_creation_update']
+    )]
     private ?string $title;
 
     /**

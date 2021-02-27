@@ -30,22 +30,30 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255)
      */
-    #[Assert\NotBlank(groups: ['user_create'])]
-    #[Assert\Length(min: 3, groups: ['user_create'])]
+    #[Assert\NotBlank(message: 'The firstname is required.', groups: ['user_create'])]
+    #[Assert\Length(
+        min: 3,
+        minMessage: 'Your firstname must be at least {{ limit }} characters long.',
+        groups: ['user_create']
+    )]
     private string $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    #[Assert\NotBlank(groups: ['user_create'])]
-    #[Assert\Length(min: 3, groups: ['user_create'])]
+    #[Assert\NotBlank(message: 'The lastname is required.', groups: ['user_create'])]
+    #[Assert\Length(
+        min: 3,
+        minMessage: 'Your lastname must be at least {{ limit }} characters long.',
+        groups: ['user_create']
+    )]
     private string $lastName;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
      */
-    #[Assert\NotBlank(groups: ['user_create'])]
-    #[Assert\Email(groups: ['user_create'])]
+    #[Assert\NotBlank(message: 'The email is required.', groups: ['user_create'])]
+    #[Assert\Email(mode: 'html5', groups: ['user_create'])]
     private string $email;
 
     /**
