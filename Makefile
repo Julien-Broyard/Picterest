@@ -18,8 +18,23 @@ lint: vendor/autoload.php ## Lint the code
 	$(console) lint:container
 	$(console) lint:twig templates --env=prod
 	$(vendor)/parallel-lint --exclude vendor .
-	$(vendor)/phpstan analyse src tests --level 7
+	$(vendor)/phpstan analyse src --level 7
 
-.PHONY: seed
-seed: vendor/autoload.php ## Seed the database
-	$(console) doctrine:migrations:migrate -n
+.PHONY: start
+start: vendor/autoload.php ## Start the web server and the workers
+	docker-compose up -d
+	symfony serve -d
+	symfony run -d --watch=config,src,templates,vendor symfony console messenger:consume async
+
+.PHONY: stop
+stop: vendor/autoload.php ## Stops the the web server and the workers
+	docker-compose stop
+	symfony server:stop
+	symfony console messenger:stop-workers
+
+.PHONY: setup
+setup: vendor/autoload.php ## Sets up the entire environment
+	composer install
+	make start
+	$(console) doctrine:migrations:migrate --no-interaction
+	$(console) hautelook:fixtures:load --no-interaction

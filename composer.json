@@ -69,7 +69,6 @@
     "symfony/css-selector": "^5.2",
     "symfony/debug-bundle": "^5.2",
     "symfony/maker-bundle": "^1.0",
-    "symfony/phpunit-bridge": "^5.2",
     "symfony/stopwatch": "^5.2",
     "symfony/var-dumper": "^5.2",
     "symfony/web-profiler-bundle": "^5.2",
@@ -110,10 +109,6 @@
     "auto-scripts": {
       "cache:clear": "symfony-cmd",
       "assets:install %PUBLIC_DIR%": "symfony-cmd"
-    },
-    "server:start": "symfony serve -d",
-    "server:stop": "symfony server:stop",
-    "workers:start": "symfony run -d --watch=config,src,templates,vendor symfony console messenger:consume async",
-    "workers:stop": "symfony console messenger:stop-workers"
+    }
   }
 }
