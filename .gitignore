@@ -15,7 +15,7 @@
 
 ###> symfony/phpunit-bridge ###
 .phpunit
-.phpunit.cache/test-results
+.phpunit.*/
 .phpunit.result.cache
 /phpunit.xml
 ###< symfony/phpunit-bridge ###

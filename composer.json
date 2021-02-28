@@ -58,7 +58,13 @@
   },
   "require-dev": {
     "ergebnis/composer-normalize": "^2.13",
+    "friendsofphp/php-cs-fixer": "^2.18",
     "hautelook/alice-bundle": "^2.9",
+    "php-parallel-lint/php-parallel-lint": "^1.2",
+    "phpstan/phpstan": "^0.12.79",
+    "phpstan/phpstan-doctrine": "^0.12.32",
+    "phpstan/phpstan-phpunit": "^0.12.17",
+    "phpstan/phpstan-symfony": "^0.12.20",
     "symfony/browser-kit": "^5.2",
     "symfony/css-selector": "^5.2",
     "symfony/debug-bundle": "^5.2",
@@ -66,7 +72,8 @@
     "symfony/phpunit-bridge": "^5.2",
     "symfony/stopwatch": "^5.2",
     "symfony/var-dumper": "^5.2",
-    "symfony/web-profiler-bundle": "^5.2"
+    "symfony/web-profiler-bundle": "^5.2",
+    "thecodingmachine/phpstan-strict-rules": "^0.12.1"
   },
   "config": {
     "optimize-autoloader": true,
@@ -104,13 +111,6 @@
       "cache:clear": "symfony-cmd",
       "assets:install %PUBLIC_DIR%": "symfony-cmd"
     },
-    "lint": [
-      "symfony check:security",
-      "symfony console lint:yaml config --parse-tags",
-      "symfony console doctrine:schema:validate --skip-sync -vvv --no-interaction",
-      "symfony console lint:container",
-      "symfony console lint:twig templates --env=prod"
-    ],
     "server:start": "symfony serve -d",
     "server:stop": "symfony server:stop",
     "workers:start": "symfony run -d --watch=config,src,templates,vendor symfony console messenger:consume async",

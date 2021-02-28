@@ -2,6 +2,12 @@
     "composer/package-versions-deprecated": {
         "version": "1.11.99.1"
     },
+    "composer/semver": {
+        "version": "3.2.4"
+    },
+    "composer/xdebug-handler": {
+        "version": "1.4.5"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
@@ -105,6 +111,18 @@
     "fakerphp/faker": {
         "version": "v1.13.0"
     },
+    "friendsofphp/php-cs-fixer": {
+        "version": "2.16",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "2.16",
+            "ref": "c1947bad147704aeaf0285745f0baae927a58959"
+        },
+        "files": [
+            "./.php_cs.dist"
+        ]
+    },
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.3"
     },
@@ -168,6 +186,12 @@
     "nikic/php-parser": {
         "version": "v4.10.4"
     },
+    "php-cs-fixer/diff": {
+        "version": "v1.3.1"
+    },
+    "php-parallel-lint/php-parallel-lint": {
+        "version": "v1.2.0"
+    },
     "phpdocumentor/reflection-common": {
         "version": "2.2.0"
     },
@@ -176,6 +200,18 @@
     },
     "phpdocumentor/type-resolver": {
         "version": "1.4.0"
+    },
+    "phpstan/phpstan": {
+        "version": "0.12.79"
+    },
+    "phpstan/phpstan-doctrine": {
+        "version": "0.12.32"
+    },
+    "phpstan/phpstan-phpunit": {
+        "version": "0.12.17"
+    },
+    "phpstan/phpstan-symfony": {
+        "version": "0.12.20"
     },
     "psr/cache": {
         "version": "1.0.1"
@@ -452,6 +488,9 @@
     "symfony/polyfill-mbstring": {
         "version": "v1.22.1"
     },
+    "symfony/polyfill-php70": {
+        "version": "v1.20.0"
+    },
     "symfony/polyfill-php73": {
         "version": "v1.22.1"
     },
@@ -627,6 +666,9 @@
     },
     "symfonycasts/verify-email-bundle": {
         "version": "v1.2.0"
+    },
+    "thecodingmachine/phpstan-strict-rules": {
+        "version": "v0.12.1"
     },
     "theofidry/alice-data-fixtures": {
         "version": "1.0",

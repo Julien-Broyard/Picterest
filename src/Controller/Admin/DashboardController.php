@@ -26,7 +26,10 @@ class DashboardController extends AbstractDashboardController
     #[Route('/admin', name: 'admin_index')]
     public function index(): Response
     {
-        $routeBuilder = $this->get(CrudUrlGenerator::class)->build();
+        /** @var CrudUrlGenerator $crudUrlGenerator */
+        $crudUrlGenerator = $this->get(CrudUrlGenerator::class);
+
+        $routeBuilder = $crudUrlGenerator->build();
         $url = $routeBuilder->setController(PinCrudController::class)->generateUrl();
 
         return $this->redirect($url);

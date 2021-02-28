@@ -1,0 +1,40 @@
+includes:
+    - vendor/phpstan/phpstan-doctrine/extension.neon
+    - vendor/phpstan/phpstan-doctrine/rules.neon
+    - vendor/phpstan/phpstan-phpunit/extension.neon
+    - vendor/phpstan/phpstan-phpunit/rules.neon
+    - vendor/phpstan/phpstan-symfony/extension.neon
+    - vendor/thecodingmachine/phpstan-strict-rules/phpstan-strict-rules.neon
+
+parameters:
+    checkGenericClassInNonGenericObjectType: false
+    checkMissingIterableValueType: false
+    inferPrivatePropertyTypeFromConstructor: true
+    reportUnmatchedIgnoredErrors: false
+    excludes_analyse:
+        - %rootDir%/../../../bin/*
+        - %rootDir%/../../../config/*
+        - %rootDir%/../../../php_cs.dist
+        - %rootDir%/../../../public/*
+        - %rootDir%/../../../tests/*
+        - %rootDir%/../../../var/*
+        - %rootDir%/../../../vendor/*
+    ignoreErrors:
+        - '#PHPDoc tag @return with type object is not subtype of native type#'
+        - '#Call to an undefined method DateTimeInterface::add\(\)#'
+        - '#Call to an undefined method Doctrine\\ORM\\Event\\LifecycleEventArgs::getNewValue\(\)#'
+        - '#Call to an undefined method Doctrine\\ORM\\Event\\LifecycleEventArgs::getOldValue\(\)#'
+        - '#Call to an undefined method Doctrine\\Persistence\\ObjectRepositor.*#'
+        - '#Call to an undefined method Knp\\Bundle\\PaginatorBundle\\Pagination\\SlidingPaginationInterface.*#'
+        - '#call_user_func_array expects callable\(\)#'
+        - '#expects App\\Entity\\User, Symfony\\Component\\Security\\Core\\User\\UserInterface given.#'
+        - '#ftp_fput expects resource#'
+        - '#Method .* should return .* but returns .*ObjectRepository#'
+        - '#Method .* should return .* but returns object#'
+        - '#Method App\\.*Repository\(\).*should return App\\Repository\\.*Repository but returns Doctrine\\ORM\\EntityRepository.*#'
+        - '#PHPDoc tag @return with type .*ObjectRepository is not subtype of native type .*Repository#'
+        - '#PHPDoc tag @throws with type .* is not subtype of Throwable#'
+        - '#Property .*\\Entity\\.* has no typehint specified.#'
+        - '#string\|Stringable\|Symfony\\Component\\Security\\Core\\User\\UserInterface#'
+        - '#Symfony\\Component\\Security\\Core\\User\\UserInterface is not subtype of#'
+        - '#Variable .* in PHPDoc tag @var does not exist#'

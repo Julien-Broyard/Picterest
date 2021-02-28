@@ -27,14 +27,14 @@ trait Timestampable
      */
     private \DateTime $updatedAt;
 
-    /** @ORM\PrePersist() */
+    /** @ORM\PrePersist */
     public function prePersist(): void
     {
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime();
     }
 
-    /** @ORM\PreUpdate() */
+    /** @ORM\PreUpdate */
     public function preUpdate(): void
     {
         $this->updatedAt = new \DateTime();

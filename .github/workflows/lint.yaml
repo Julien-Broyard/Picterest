@@ -1,0 +1,43 @@
+name: Code style and static analysis
+
+on:
+    pull_request:
+    push:
+        branches: [master]
+
+jobs:
+    format:
+        name: format
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: '8.0'
+
+            - name: Install Dependencies
+              run: composer install --no-progress --no-interaction --prefer-dist
+
+            - name: Run Script
+              run: make format
+
+    lint:
+        name: lint
+        runs-on: ubuntu-latest
+        steps:
+            -   name: Checkout
+                uses: actions/checkout@v2
+
+            -   name: Setup PHP
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: '8.0'
+
+            -   name: Install Dependencies
+                run: composer install --no-progress --no-interaction --prefer-dist
+
+            -   name: Run Script
+                run: make lint
