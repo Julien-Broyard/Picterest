@@ -31,7 +31,7 @@ class AppExtension extends AbstractExtension
             throw new \TypeError('$count must be numeric.');
         }
 
-        $none = $none ?? $plural;
+        $none ??= $plural;
         $string = ((0 === $count) ? $none : ((1 === $count) ? $singular : $plural));
 
         return sprintf($string, $count);

@@ -15,7 +15,6 @@ format: vendor/autoload.php ## Format the code
 lint: vendor/autoload.php ## Lint the code
 	$(console) lint:yaml config --parse-tags
 	$(console) doctrine:schema:validate --skip-sync -vvv --no-interaction
-	$(console) lint:container
 	$(console) lint:twig templates --env=prod
 	$(vendor)/parallel-lint --exclude vendor .
 	$(vendor)/phpstan analyse src --level 7
