@@ -1,6 +1,6 @@
 {
     "description": "Simple Pinterest clone made with Symfony 5.",
-    "name": "picterest",
+    "name": "picterest/picterest",
     "type": "project",
     "license": "proprietary",
     "require": {
