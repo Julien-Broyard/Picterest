@@ -7,7 +7,6 @@ Picterest is a _simple_ Pinterest clone made for learning purposes.
 - [Composer](https://getcomposer.org/)
 - [Docker](https://www.docker.com/)
 - [Docker Compose](https://docs.docker.com/compose/install/)
-- [Make](https://www.gnu.org/software/make/) - Optional
 - PHP 8.0 or higher
 - `pdo_pgsql` extension enabled
 - [Symfony CLI](https://symfony.com/download)
@@ -22,13 +21,7 @@ Create an Inbox and go to your SMTP Settings, select the Symfony 5 integration c
 Run the following command to set up the environment:
 
 ```shell
-make setup
-```
-
-Or this command if you don't have make
-
-```shell
-composer setup
+composer run setup
 ```
 
 ## Usage
@@ -36,23 +29,19 @@ composer setup
 To start the web server and the messenger workers run the following command:
 
 ```shell
-make start
-```
-
-Or this command if you don't have make
-
-```shell
-composer start
+composer run start
 ```
 
 To stop the web server and the messenger workers run the following command:
 
 ```shell
-make stop
+composer run stop
 ```
 
-Or this command if you don't have make
+## Tests
+
+To run the tests run the following command:
 
 ```shell
-composer stop
+composer run test
 ```

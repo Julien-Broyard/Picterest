@@ -121,6 +121,7 @@
         "lint": [
             "symfony console lint:yaml config --parse-tags",
             "symfony console doctrine:schema:validate --skip-sync -vvv --no-interaction",
+            "symfony console lint:container --no-debug",
             "symfony console lint:twig templates --env=prod",
             "./vendor/bin/parallel-lint --exclude vendor .",
             "./vendor/bin/phpstan analyse src --level 7"
@@ -140,6 +141,9 @@
             "docker-compose stop",
             "symfony server:stop",
             "symfony console messenger:stop-workers"
+        ],
+        "test": [
+            "php vendor/bin/simple-phpunit -v"
         ]
     }
 }
