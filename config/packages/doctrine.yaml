@@ -1,6 +1,7 @@
 doctrine:
     dbal:
         url: '%env(resolve:DATABASE_URL)%'
+        override_url: true
         schema_filter: ~^(?!session)~
         server_version: '13.2'
     orm:
